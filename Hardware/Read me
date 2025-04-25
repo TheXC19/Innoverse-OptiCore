@@ -1,0 +1,13 @@
+Bonjour à tous, c'est "Opti Core team". 
+Dans ce fichier on va vous expliquer la partie hardware qui simule une Station de bus (ou du tram) sous forme d'un système IoT qui communique 
+à travers le protocol "MQTT" qui est dédié principalement aux objets connectés.
+Cette station a comme entée le temps d'arrivée du prochain Bus et le temps de départ de Bus qui se trouve dans la station précédente 
+pour gérer les heures de pointe (les stations qui ont le plus grand nombre des passagers en attente) et comme sortie le nombre de passagers dans 
+la station actuelle (calculé par une caméra intelligente).
+Donc c'est pour ça on a fait la communication entre deux cartes Raspberry pi via "MQTT", la première donne le nombre de passagers (on commande l'augmentation
+et la diminution de nombre de passagers en utilisant deux boutons) et la deuxième affiche le temps d'arrivée du prochain bus et le temps de départ du bus qui est dans la station précédente dans une interface Tkinter.
+pour faire cette communication les deux Raspberry pi doivent être abonnées à un topic donnée dans un broker (hybergé dans HiveMQ) et publier dans le même broker en utilisant:
+paho.mqtt.client as mqtt
+paho.mqtt.publish as publish
+avec l'utilisation d'un thread car on a deux boucles infines, la première est abonnée dans le topic et la deuxième publie.
+
